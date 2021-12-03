@@ -57,13 +57,3 @@ testthat::test_that("Test cov; alpha = 0 and beta = 0", {
   testthat::expect_equal(pca_out$sdev, spca_out$sdev)
   testthat::expect_equal(sum(diag(1,10,10) - t(spca_out$loadings)%*%spca_out$loadings), 0 )
 })
-
-#*************************************************************************************
-# Test: spcaRcpp - print()
-#*************************************************************************************
-testthat::test_that("Test print function", {
-  expect_equal(
-  testthat::expect_output(print(spca_out)),
-  expect_output(print(spca_out))
-  )
-})
