@@ -59,5 +59,17 @@ testthat::test_that("Test cov; alpha = 0 and beta = 0", {
   testthat::expect_equal(sum(diag(1,10,10) - t(spca_out$loadings)%*%spca_out$loadings), 0 )
 })
 
+#*************************************************************************************
+# Test: spcaRcpp - k > min(n,p)
+#*************************************************************************************
+
+pca_out <- prcomp(X,center = FALSE,) #Sparse PCA
+spca_out <- spcaRcpp(X, k = 11, alpha=0, beta=0, center = FALSE) #Sparse PCA with Rcpp
+
+#Test1: SPCA recovers PCA for alpha = 0 and beta = 0.
+testthat::test_that("Test cov; alpha = 0 and beta = 0", {
+  testthat::expect_equal(pca_out$sdev, spca_out$sdev)
+  testthat::expect_equal(sum(diag(1,10,10) - t(spca_out$loadings)%*%spca_out$loadings), 0 )
+})
 
 

@@ -122,13 +122,11 @@ spcaRcpp.default <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_
   n <- nrow(X)
   p <- ncol(X)
 
-  #set target rank, k must be greater than 1 and less than (n,p)
+  #set target rank, k must be less or equal to the minimum of (n,p)
   if(is.null(k)) {
     k <- min(n,p)
   }else if(k > min(n,p)) {
     k <- min(n,p)
-  }else if(k<1) {
-    stop("Enter a Valid Target Rank")
   }
 
   #Center Data
