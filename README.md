@@ -62,9 +62,10 @@ A list with the following components is returned:
 
 Install the developer version of sparsepca package via github
 ```R
-install.packages("devtools")
+#install.packages("devtools")
 library(devtools)
-install_github("BoyaJiang/spcaRcpp")
+devtools::install_github("BoyaJiang/spcaRcpp")
+library(spcaRcpp)
 ```
 
 ## References
