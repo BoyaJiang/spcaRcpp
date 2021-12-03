@@ -112,6 +112,10 @@ print(out)
  "Sparse Principal Component Analysis via Variable Projection."
  SIAM Journal on Applied Mathematics 2020 80:2, 977-1002
  (available at `arXiv \url{https://arxiv.org/abs/1804.00341}).
+
+
+\item [2] N. B. Erichson, P. Zheng, S. Aravkin, sparsepca, (2018), GitHub repository,
+\url{https://github.com/erichson/spca}. 
 }
 }
 \author{
