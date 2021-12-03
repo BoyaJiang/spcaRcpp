@@ -15,48 +15,37 @@ spcaRcpp(
 )
 }
 \arguments{
-\item{X}{array_like; \cr
-a real \eqn{(n, p)} input matrix.}
+\item{X}{a numeric matrix or data.frame which provides the data for 
+the sparse principal components analysis.}
 
-\item{k}{integer; \cr
-specifies the target rank, i.e., the number of components to be computed.}
+\item{k}{optional, a number specifying the maximal rank.}
 
-\item{alpha}{float; \cr
-Sparsity controlling parameter. Higher values means sparser components.}
+\item{alpha}{Sparsity controlling parameter. Higher values means sparser components.}
 
-\item{beta}{float; \cr
-Amount of ridge shrinkage to apply in order to improve conditioning.}
+\item{beta}{Amount of ridge shrinkage to apply in order to improve conditioning.}
 
-\item{center}{bool; \cr
-logical value indicating if the variables should be zero centered
-(TRUE by default).}
+\item{center}{a logical value indicating whether the variables should be 
+shifted to be zero centered.}
 
-\item{max_iter}{integer; \cr
-maximum number of iterations to perform.}
+\item{max_iter}{maximum number of iterations to perform.}
 
-\item{tol}{float; \cr
-stopping criteria for the convergence.}
+\item{tol}{stopping criteria for the convergence.}
 }
 \value{
-\code{spca} returns a list containing the following four components:
-\item{loadings}{  array_like; \cr
-          sparse weight vector;  \eqn{(p, k)} dimensional array.
+\code{spca} returns a list containing the following five components:
+\item{loadings}{  the matrix of variable loadings. 
 }
 
-\item{standard deviations}{  array_like; \cr
-         the approximated standard deviations; \eqn{(k)} dimensional array.
+\item{standard deviations}{  the approximated standard deviations.
 }
 
-\item{eigenvalues}{  array_like; \cr
-         the approximated eigenvalues; \eqn{(k)} dimensional array.
+\item{eigenvalues}{  the approximated eigenvalues.
 }
 
-\item{center}{  array_like; \cr
-         the centering used.
+\item{center}{  the centering used.
 }
 
-\item{var}{  float; \cr
-         the variance.
+\item{var}{  the variance.
 }
 
 \code{\link{iteration}}.
@@ -65,7 +54,7 @@ stopping criteria for the convergence.}
 Implementation of SPCA, using variable projection as an optimization strategy.
 }
 \details{
-Sparse principal componenet analysis is a specialized variant of PCA. Specifically, SPCA promotes sparsity
+Sparse principal component analysis is a specialized variant of PCA. Specifically, SPCA promotes sparsity
 in the modes, i.e., the sparse modes have only a few active (nonzero) coefficients, while the majority of coefficients
 are constrained to be zero. This approach leads to a improved localization and interpretability of the model
 compared to the global PCA modes obtained from traditional PCA. In addition, SPCA avoids overfitting in a 
@@ -92,15 +81,15 @@ The print method can be used to present the results in a nice format.
 
 # Create artifical data
 m <- 10000
-V1 <- rnorm(m, -100,200)
+V1 <- rnorm(m, -100, 200)
 V2 <- rnorm(m, -100, 300)
-V3 <- -0.1*V1 + 0.1*V2 + rnorm(m, 0, 100)
+V3 <- -0.1 * V1 + 0.1 * V2 + rnorm(m, 0, 100)
 
-X <- cbind(V1,V1,V1,V1, V2,V2,V2,V2, V3,V3)
-X <- X + matrix(rnorm(length(X),0,1), ncol = ncol(X), nrow = nrow(X))
+X <- cbind(V1, V1, V1, V1, V2, V2, V2, V2, V3, V3)
+X <- X + matrix( rnorm( length(X), 0, 1 ), ncol = ncol(X), nrow = nrow(X) )
 
 # Compute SPCA
-out <- spcaRcpp(X, k=3, alpha=1e-3, beta=1e-3, center = TRUE)
+out <- spcaRcpp(X, k=3, alpha=1e-4, beta=1e-4, center = TRUE)
 print(out)
 
 

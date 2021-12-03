@@ -29,44 +29,30 @@ spca_out <- spcaRcpp(X, k=3, alpha=0, beta=0, center = TRUE) #Sparse PCA with Rc
 #Test1: SPCA recovers PCA for alpha = 0 and beta = 0.
 testthat::test_that("Test cov; alpha = 0 and beta = 0", {
   testthat::expect_equal(pca_out$sdev[1:3], spca_out$sdev[1:3])
-  testthat::expect_equal(sum(diag(1,3,3) - t(spca_out$loadings)%*%spca_out$loadings), 0 )
+  testthat::expect_equal(sum(diag(1, 3, 3) - t(spca_out$loadings)%*%spca_out$loadings), 0 )
 })
 
 #*************************************************************************************
-# Test: spcaRcpp - center = FALSE
+# Test: spcaRcpp - center = FALSE, k = NULL
 #*************************************************************************************
 
-pca_out <- prcomp(X, rank = 3,center = FALSE,) #Sparse PCA
-spca_out <- spcaRcpp(X, k=3, alpha=0, beta=0, center = FALSE) #Sparse PCA with Rcpp
-
-#Test1: SPCA recovers PCA for alpha = 0 and beta = 0.
-testthat::test_that("Test cov; alpha = 0 and beta = 0", {
-  testthat::expect_equal(pca_out$sdev[1:3], spca_out$sdev[1:3])
-  testthat::expect_equal(sum(diag(1,3,3) - t(spca_out$loadings)%*%spca_out$loadings), 0 )
-})
-
-
-#*************************************************************************************
-# Test: spcaRcpp - k = NULL
-#*************************************************************************************
-
-pca_out <- prcomp(X,center = FALSE,) #Sparse PCA
+pca_out <- prcomp(X, center = FALSE,) #Sparse PCA
 spca_out <- spcaRcpp(X, alpha=0, beta=0, center = FALSE) #Sparse PCA with Rcpp
 
-#Test1: SPCA recovers PCA for alpha = 0 and beta = 0.
+#Test2: SPCA recovers PCA for center = FALSE, k = NULL.
 testthat::test_that("Test cov; alpha = 0 and beta = 0", {
   testthat::expect_equal(pca_out$sdev, spca_out$sdev)
-  testthat::expect_equal(sum(diag(1,10,10) - t(spca_out$loadings)%*%spca_out$loadings), 0 )
+  testthat::expect_equal(sum(diag(1, 10, 10) - t(spca_out$loadings)%*%spca_out$loadings), 0 )
 })
 
 #*************************************************************************************
-# Test: spcaRcpp - k > min(n,p)
+# Test: spcaRcpp - k > min(n, p)
 #*************************************************************************************
 
 pca_out <- prcomp(X,center = FALSE,) #Sparse PCA
 spca_out <- spcaRcpp(X, k = 11, alpha=0, beta=0, center = FALSE) #Sparse PCA with Rcpp
 
-#Test1: SPCA recovers PCA for alpha = 0 and beta = 0.
+#Test3: SPCA recovers PCA for k > min(n, p).
 testthat::test_that("Test cov; alpha = 0 and beta = 0", {
   testthat::expect_equal(pca_out$sdev, spca_out$sdev)
   testthat::expect_equal(sum(diag(1,10,10) - t(spca_out$loadings)%*%spca_out$loadings), 0 )
@@ -75,4 +61,6 @@ testthat::test_that("Test cov; alpha = 0 and beta = 0", {
 #*************************************************************************************
 # Test: spcaRcpp - print()
 #*************************************************************************************
-print (spca_out)
+testthat::expect_output(print(spca_out))
+
+

@@ -3,7 +3,7 @@
 #' @description Implementation of SPCA, using variable projection as an optimization strategy.
 #
 #' @details
-#' Sparse principal componenet analysis is a specialized variant of PCA. Specifically, SPCA promotes sparsity
+#' Sparse principal component analysis is a specialized variant of PCA. Specifically, SPCA promotes sparsity
 #' in the modes, i.e., the sparse modes have only a few active (nonzero) coefficients, while the majority of coefficients
 #' are constrained to be zero. This approach leads to a improved localization and interpretability of the model
 #' compared to the global PCA modes obtained from traditional PCA. In addition, SPCA avoids overfitting in a 
@@ -26,47 +26,36 @@
 #'
 #' The print method can be used to present the results in a nice format.
 #'
-#' @param X       array_like; \cr
-#'                a real \eqn{(n, p)} input matrix.
+#' @param X       a numeric matrix or data.frame which provides the data for 
+#'                the sparse principal components analysis.
 #'
-#' @param k       integer; \cr
-#'                specifies the target rank, i.e., the number of components to be computed.
+#' @param k       optional, a number specifying the maximal rank.
+#' 
+#' @param alpha   Sparsity controlling parameter. Higher values means sparser components.
 #'
-#' @param alpha   float; \cr
-#'                Sparsity controlling parameter. Higher values means sparser components.
-#'
-#' @param beta    float; \cr
-#'                Amount of ridge shrinkage to apply in order to improve conditioning.
+#' @param beta    Amount of ridge shrinkage to apply in order to improve conditioning.
 #'                
-#' @param center  bool; \cr
-#'                logical value indicating if the variables should be zero centered
-#'                (TRUE by default).
+#' @param center  a logical value indicating whether the variables should be 
+#'                shifted to be zero centered.  
 #'                
-#' @param max_iter integer; \cr
-#'                 maximum number of iterations to perform.
+#' @param max_iter maximum number of iterations to perform.
 #'
-#' @param tol     float; \cr
-#'                stopping criteria for the convergence.
+#' @param tol     stopping criteria for the convergence.
 #'
-#'@return \code{spca} returns a list containing the following four components:
-#'\item{loadings}{  array_like; \cr
-#'           sparse weight vector;  \eqn{(p, k)} dimensional array.
+#'@return \code{spca} returns a list containing the following five components:
+#'\item{loadings}{  the matrix of variable loadings. 
 #'}
 #'
-#'\item{standard deviations}{  array_like; \cr
-#'          the approximated standard deviations; \eqn{(k)} dimensional array.
+#'\item{standard deviations}{  the approximated standard deviations.
 #'}
 #'
-#'\item{eigenvalues}{  array_like; \cr
-#'          the approximated eigenvalues; \eqn{(k)} dimensional array.
+#'\item{eigenvalues}{  the approximated eigenvalues.
 #'}
 #'
-#'\item{center}{  array_like; \cr
-#'          the centering used.
+#'\item{center}{  the centering used.
 #'}
 #'
-#'\item{var}{  float; \cr
-#'          the variance.
+#'\item{var}{  the variance.
 #'}
 #'
 #'\code{\link{iteration}}.
@@ -90,15 +79,15 @@
 #'
 #' # Create artifical data
 #' m <- 10000
-#' V1 <- rnorm(m, -100,200)
+#' V1 <- rnorm(m, -100, 200)
 #' V2 <- rnorm(m, -100, 300)
-#' V3 <- -0.1*V1 + 0.1*V2 + rnorm(m, 0, 100)
+#' V3 <- -0.1 * V1 + 0.1 * V2 + rnorm(m, 0, 100)
 #'
-#' X <- cbind(V1,V1,V1,V1, V2,V2,V2,V2, V3,V3)
-#' X <- X + matrix(rnorm(length(X),0,1), ncol = ncol(X), nrow = nrow(X))
+#' X <- cbind(V1, V1, V1, V1, V2, V2, V2, V2, V3, V3)
+#' X <- X + matrix( rnorm( length(X), 0, 1 ), ncol = ncol(X), nrow = nrow(X) )
 #'
 #' # Compute SPCA
-#' out <- spcaRcpp(X, k=3, alpha=1e-3, beta=1e-3, center = TRUE)
+#' out <- spcaRcpp(X, k=3, alpha=1e-4, beta=1e-4, center = TRUE)
 #' print(out)
 #'
 #'
@@ -109,11 +98,13 @@ spcaRcpp <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_iter=100
 
 #' @export
 spcaRcpp.default <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_iter=1000, tol=1e-5) {
-  options(warn=-1)
+  options(warn = -1)
   library(Rcpp)
   library(RcppArmadillo)
 
+  #make sure X is a matrix
   X = as.matrix(X)
+  
   #initiate spca object
   spcaObj = list(loadings = NULL,
                  eigenvalues = NULL,
@@ -123,17 +114,17 @@ spcaRcpp.default <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_
   p <- ncol(X)
 
   #set target rank, k must be less or equal to the minimum of (n,p)
-  if(is.null(k)) {
-    k <- min(n,p)
-  }else if(k > min(n,p)) {
-    k <- min(n,p)
-  }
+  if( is.null(k) ) {
+    k <- min(n, p)
+  }else if( k > min(n, p) ) {
+    k <- min(n, p)
+  } 
 
   #Center Data
   if(center == TRUE) {
     spcaObj$center <- colMeans(X)
     X <- sweep(X, MARGIN = 2, STATS = spcaObj$center, FUN = "-", check.margin = TRUE)
-  } else { 
+  }else{ 
     spcaObj$center <- FALSE 
   }
 
@@ -145,7 +136,7 @@ spcaRcpp.default <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_
   V <- svd_X$v
   
   VD  = sweep(V, MARGIN = 2, STATS = svd_X$d, FUN = "*")
-  VD2 = sweep(V, MARGIN = 2, STATS = svd_X$d**2, FUN = "*")
+  VD2 = sweep(V, MARGIN = 2, STATS = svd_X$d^2, FUN = "*")
 
   #set tuning parameters
   alpha <- alpha * Dmax^2
@@ -158,16 +149,11 @@ spcaRcpp.default <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_
 
   #update spca objects
   spcaObj$loadings    <- ret$B
-  spcaObj$eigenvalues <- as.vector(t(ret$d / (n - 1)))
+  spcaObj$eigenvalues <- as.vector( t( ret$d / (n - 1) ) )
 
   #explained variance
-  spcaObj$sdev <- sqrt( spcaObj$eigenvalues )
+  spcaObj$sdev <- sqrt(spcaObj$eigenvalues)
   spcaObj$var  <- sum( apply( Re(X) , 2, stats::var ) )
-  
-  # #return the real part for complex values
-  # if (is.complex(X)){
-  #   spcaObj$var <- Re(spcaObj$var + sum( apply( Im(X) , 2, stats::var ) ))
-  # }
   
   class (spcaObj) <- "spca"
   return (spcaObj)
@@ -175,12 +161,11 @@ spcaRcpp.default <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_
 
 #' @export
 print.spcaRcpp <- function(x , ...) {
-  #print spca
   cat("Standard deviations:\n")
-  print (round(x$sdev,4))
+  print ( round( x$sdev, 4 ) )
   cat("\nEigenvalues:\n")
-  print (round(x$eigenvalues,4))
+  print ( round( x$eigenvalues, 4 ) )
   cat("\nSparse loadings:\n")
-  print (round(x$loadings,4))
+  print ( round( x$loadings, 4 ) )
 }
 
