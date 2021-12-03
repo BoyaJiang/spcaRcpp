@@ -164,10 +164,10 @@ spcaRcpp.default <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_
   spcaObj$sdev <- sqrt( spcaObj$eigenvalues )
   spcaObj$var  <- sum( apply( Re(X) , 2, stats::var ) )
   
-  #return the real part for complex values
-  if (is.complex(X)){
-    spcaObj$var <- Re(spcaObj$var + sum( apply( Im(X) , 2, stats::var ) ))
-  }
+  # #return the real part for complex values
+  # if (is.complex(X)){
+  #   spcaObj$var <- Re(spcaObj$var + sum( apply( Im(X) , 2, stats::var ) ))
+  # }
   
   class (spcaObj) <- "spca"
   return (spcaObj)
