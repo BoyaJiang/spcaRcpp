@@ -1,6 +1,3 @@
-<!-- badges: start -->
-[![codecov](https://codecov.io/gh/BoyaJiang/spcaRcpp/branch/main/graph/badge.svg?token=K67GNXHLD4)](https://codecov.io/gh/BoyaJiang/spcaRcpp)
-<!-- badges: end -->
 
 # Rcpp Integration of SPCA via Variable Projection
 
