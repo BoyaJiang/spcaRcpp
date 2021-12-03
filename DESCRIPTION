@@ -10,6 +10,7 @@ License: GPL-2
 Imports: Rcpp (>= 1.0.7)
 LinkingTo: Rcpp, RcppArmadillo
 Encoding: UTF-8
+SystemRequirements: C++11
 RoxygenNote: 7.1.2
 Suggests: 
     rmarkdown,
