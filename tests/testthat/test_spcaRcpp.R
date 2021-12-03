@@ -61,6 +61,9 @@ testthat::test_that("Test cov; alpha = 0 and beta = 0", {
 #*************************************************************************************
 # Test: spcaRcpp - print()
 #*************************************************************************************
-testthat::expect_output(print(spca_out))
-
-
+testthat::test_that("Test print function", {
+  expect_equal(
+  testthat::expect_output(print(spca_out)),
+  expect_output(print(spca_out))
+  )
+})

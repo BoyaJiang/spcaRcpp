@@ -161,11 +161,11 @@ spcaRcpp.default <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_
 
 #' @export
 print.spcaRcpp <- function(x , ...) {
-  cat("Standard deviations:\n")
+  print("Standard deviations:\n")
   print ( round( x$sdev, 4 ) )
-  cat("\nEigenvalues:\n")
+  print("\nEigenvalues:\n")
   print ( round( x$eigenvalues, 4 ) )
-  cat("\nSparse loadings:\n")
+  print("\nSparse loadings:\n")
   print ( round( x$loadings, 4 ) )
 }
 
