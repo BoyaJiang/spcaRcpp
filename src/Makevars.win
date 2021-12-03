@@ -8,7 +8,16 @@
 ##
 ## And with R 3.4.0, and RcppArmadillo 0.7.960.*, we turn C++11 on as OpenMP
 ## support within Armadillo prefers / requires it
-CXX_STD = CXX11
+#CXX_STD = CXX11
+
+VER=-11
+CC=gcc$(VER)
+CXX=g++$(VER)
+CFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion
+CXXFLAGS=-mtune=native -g -O2 -Wall -pedantic -Wconversion
+# FLIBS=-L/usr/local/Cellar/gcc/11.1.0_1/lib/gcc/11
+# FLIBS = -L`gfortran -print-file-name=libgfortran.dylib | xargs dirname`
+FLIBS=`gfortran -print-search-dirs | grep ^libraries: | sed 's|libraries: =||' | sed 's|:| -L|g' | sed 's|^|-L|'`
 
 PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS) 
 PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
