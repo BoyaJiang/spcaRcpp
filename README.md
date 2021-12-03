@@ -1,3 +1,6 @@
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/BoyaJiang/spcaRcpp/workflows/R-CMD-check/badge.svg)](https://github.com/BoyaJiang/spcaRcpp/actions)
+<!-- badges: end -->
 
 # Rcpp Integration of SPCA via Variable Projection
 
