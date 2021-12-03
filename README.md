@@ -72,3 +72,5 @@ install_github("BoyaJiang/spcaRcpp")
 * [N. Benjamin Erichson, et al. "Sparse Principal Component Analysis via Variable Projection." (2018)](https://arxiv.org/abs/1804.00341)
 
 * [N. Benjamin Erichson, et al. "Randomized Matrix Decompositions using R." (2016)](http://arxiv.org/abs/1608.02148)
+
+* [N. B. Erichson, P. Zheng, S. Aravkin, sparsepca, (2018), GitHub repository](https://github.com/erichson/spca) 
