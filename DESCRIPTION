@@ -17,6 +17,9 @@ RoxygenNote: 7.1.2
 Suggests: 
     rmarkdown,
     knitr,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    tidyverse,
+    ggplot2,
+    microbenchmark
 VignetteBuilder: knitr
 Config/testthat/edition: 3

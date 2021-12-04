@@ -58,7 +58,7 @@ all.equal(prcomp_out$center, rcpp_out3$center)
 
 ### Real Data
 ```{r}
-library(tidyverse, quietly = TRUE)
+#library(tidyverse, quietly = TRUE)
 data("USArrests")
 head(USArrests)
 ```
@@ -80,7 +80,7 @@ all.equal(prcomp_out_rd$center, rcpp_out_rd$center)
 
 ```{r}
 runtime = microbenchmark::microbenchmark(prcomp_out_rd, rcpp_out_rd, times = 200)
-autoplot(runtime)
+ggplot2::autoplot(runtime)
 ```
 Although the RcppArmadillo integration for iteration loop in the spcaRcpp function was 
 expected to increase efficiency, microbenchmark did not show marginally better runtime. 
