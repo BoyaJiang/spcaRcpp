@@ -58,7 +58,6 @@
 #'\item{var}{  the variance.
 #'}
 #'
-#'\code{\link{iteration}}.
 #'
 #' @references
 #' \itemize{
@@ -100,8 +99,6 @@ spcaRcpp <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_iter=100
 #' @export
 spcaRcpp.default <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_iter=1000, tol=1e-5) {
   options(warn = -1)
-  library(Rcpp)
-  library(RcppArmadillo)
 
   #make sure X is a matrix
   X = as.matrix(X)

@@ -7,7 +7,9 @@ Author: Boya Jiang
 Maintainer: Boya Jiang <bojiang@umich.edu>
 Description: Implementation of SPCA, using variable projection as an optimization strategy.
 License: GPL-2
-Imports: Rcpp (>= 1.0.7), RcppArmadillo
+Imports: 
+    Rcpp (>= 1.0.7),
+    RcppArmadillo
 LinkingTo: Rcpp, RcppArmadillo
 Encoding: UTF-8
 SystemRequirements: C++11

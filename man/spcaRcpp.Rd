@@ -47,8 +47,6 @@ shifted to be zero centered.}
 
 \item{var}{  the variance.
 }
-
-\code{\link{iteration}}.
 }
 \description{
 Implementation of SPCA, using variable projection as an optimization strategy.
