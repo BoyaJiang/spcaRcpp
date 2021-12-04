@@ -1,12 +1,12 @@
 #devtools::use_package("testthat")
 
-context("Sparse PCA")
+#context("Sparse PCA")
 
-#Load rsvd library
+#Load library
 library(spcaRcpp)     
 
 #Set seed
-set.seed(1234)
+set.seed(322)
 
 #--------------------------------------------------------------------
 # Generate Some Data in R
@@ -18,6 +18,7 @@ V3 = -0.1*V1 + 0.1*V2 + rnorm(m,0,100)
 
 X = cbind(V1,V1,V1,V1, V2,V2,V2,V2, V3,V3)
 X = X + matrix(rnorm(length(X),0,1), ncol = ncol(X), nrow = nrow(X))
+
 
 #*************************************************************************************
 # Test: spcaRcpp - center = TRUE
@@ -31,6 +32,7 @@ testthat::test_that("Test cov; alpha = 0 and beta = 0", {
   testthat::expect_equal(pca_out$sdev[1:3], spca_out$sdev[1:3])
   testthat::expect_equal(sum(diag(1, 3, 3) - t(spca_out$loadings)%*%spca_out$loadings), 0 )
 })
+
 
 #*************************************************************************************
 # Test: spcaRcpp - center = FALSE, k = NULL

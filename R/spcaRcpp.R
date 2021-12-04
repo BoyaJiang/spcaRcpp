@@ -93,6 +93,7 @@
 #'
 #' @import Rcpp
 #' @import RcppArmadillo
+#' @rawNamespace useDynLib(spcaRcpp)
 #' @export
 spcaRcpp <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_iter=1000, tol=1e-5) UseMethod("spcaRcpp")
 
