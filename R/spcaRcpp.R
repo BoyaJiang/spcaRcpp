@@ -137,8 +137,8 @@ spcaRcpp.default <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_
   B <- svd_X$v[,1:k]
   V <- svd_X$v
   
-  VD  = sweep(V, MARGIN = 2, STATS = svd_X$d, FUN = "*")
-  VD2 = sweep(V, MARGIN = 2, STATS = svd_X$d^2, FUN = "*")
+  VD  = sweep(V, MARGIN = 2, STATS = svd_X$d, FUN = "*", check.margin = TRUE)
+  VD2 = sweep(V, MARGIN = 2, STATS = svd_X$d ^ 2, FUN = "*", check.margin = TRUE)
 
   #set tuning parameters
   alpha <- alpha * Dmax^2

@@ -24,12 +24,12 @@ Rcpp::List iter (int max_iter,
   arma::mat VV;
   
   while (noi <= max_iter && improvement > tol){
-    Z = VD2 * V.t() * B;
+    Z = VD2 * V.t() * B;        
     svd(U, d, VV, Z);
     int n = U.n_rows;
     int p = VV.n_cols;
     arma::mat UU = U.submat(0, 0, n-1, p-1);       //subset U for matrix conformity
-    arma::mat A = UU * VV.t();
+    arma::mat A = UU * VV.t();                     //update A: X'XB = UDV'
 
     //Proximal Gradient Descent to Update B
     arma::mat grad = VD2 * ( V.t() * (A - B) ) - beta * B;
