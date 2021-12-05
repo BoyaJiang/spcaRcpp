@@ -22,7 +22,7 @@ library(spcaRcpp)
 To use the package spcaRcpp, let's first generate some random data.  
 
 ```{r}
-m <- 10000
+m <- 100
 V1 <- rnorm(m, -100,200)
 V2 <- rnorm(m, -100, 300)
 V3 <- -0.1*V1 + 0.1*V2 + rnorm(m, 0, 100)
@@ -82,6 +82,7 @@ all.equal(prcomp_out_rd$center, rcpp_out_rd$center)
 runtime = microbenchmark::microbenchmark(prcomp_out_rd, rcpp_out_rd, times = 200)
 ggplot2::autoplot(runtime)
 ```
+
 Although the RcppArmadillo integration for iteration loop in the spcaRcpp function was 
 expected to increase efficiency, microbenchmark did not show marginally better runtime. 
 This could be because the iteration loop did not significantly impact the runtime of

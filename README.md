@@ -16,7 +16,7 @@ This package provides SPCA routines in R/Rcpp:
 
 ## Problem Formulation
 
-Given a data matrix ``X`` with shape ``(m,p)``, SPCA attemps to minimize the following
+Given a data matrix ``X`` with shape ``(n, p)``, SPCA attemps to minimize the following
 optimization problem:
 
 ```
@@ -34,7 +34,7 @@ Z = X %*% B.
 Specifically, the interface of the SPCA function is:
 
 ```R
-spca(X, k, alpha=1e-4, beta=1e-4, center=TRUE,max_iter=1000, tol=1e-4)
+spca(X, k, alpha=1e-4, beta=1e-4, center=TRUE, max_iter=1000, tol=1e-4)
 ```
 The description of the arguments is listed in the following:
 

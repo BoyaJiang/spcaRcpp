@@ -8,7 +8,7 @@ knitr::opts_chunk$set(
 library(spcaRcpp)
 
 ## -----------------------------------------------------------------------------
-m <- 10000
+m <- 100
 V1 <- rnorm(m, -100,200)
 V2 <- rnorm(m, -100, 300)
 V3 <- -0.1*V1 + 0.1*V2 + rnorm(m, 0, 100)
@@ -33,7 +33,7 @@ all.equal(prcomp_out$rotation, rcpp_out3$loadings, check.attributes = FALSE)
 all.equal(prcomp_out$center, rcpp_out3$center)
 
 ## -----------------------------------------------------------------------------
-library(tidyverse, quietly = TRUE)
+#library(tidyverse, quietly = TRUE)
 data("USArrests")
 head(USArrests)
 
@@ -51,5 +51,5 @@ all.equal(prcomp_out_rd$center, rcpp_out_rd$center)
 
 ## -----------------------------------------------------------------------------
 runtime = microbenchmark::microbenchmark(prcomp_out_rd, rcpp_out_rd, times = 200)
-autoplot(runtime)
+ggplot2::autoplot(runtime)
 

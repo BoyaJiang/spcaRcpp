@@ -340,7 +340,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="simulated-data" class="section level3">
 <h3>Simulated Data</h3>
 <p>To use the package spcaRcpp, let’s first generate some random data.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>m &lt;-<span class="st"> </span><span class="dv">10000</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>m &lt;-<span class="st"> </span><span class="dv">100</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>V1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(m, <span class="dv">-100</span>,<span class="dv">200</span>)</span>
 <span id="cb2-3"><a href="#cb2-3"></a>V2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(m, <span class="dv">-100</span>, <span class="dv">300</span>)</span>
 <span id="cb2-4"><a href="#cb2-4"></a>V3 &lt;-<span class="st"> </span><span class="fl">-0.1</span><span class="op">*</span>V1 <span class="op">+</span><span class="st"> </span><span class="fl">0.1</span><span class="op">*</span>V2 <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(m, <span class="dv">0</span>, <span class="dv">100</span>)</span>
@@ -352,67 +352,273 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb3-2"><a href="#cb3-2"></a><span class="kw">print</span> (rcpp_out)</span>
 <span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; $loadings</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt;                [,1]          [,2]          [,3]</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;  [1,]  9.032532e-06 -4.999831e-01 -1.736186e-03</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt;  [2,]  7.943028e-06 -4.999596e-01 -1.875294e-03</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt;  [3,]  7.331946e-06 -4.999761e-01 -1.847565e-03</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt;  [4,]  3.877008e-06 -4.999223e-01 -1.809798e-03</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt;  [5,] -4.999923e-01 -1.570792e-08  8.299051e-06</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt;  [6,] -4.999686e-01 -1.728044e-07  3.845041e-06</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt;  [7,] -5.000064e-01 -3.051447e-08  2.895139e-06</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;  [8,] -4.999715e-01 -3.144281e-07  6.858931e-06</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;  [9,] -2.167131e-05  2.654146e-03 -7.068946e-01</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; [10,] -2.550014e-05  2.644642e-03 -7.066942e-01</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;  [1,] -3.759987e-02  4.987048e-01 -1.718943e-06</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt;  [2,] -3.749278e-02  4.982603e-01 -8.488784e-06</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt;  [3,] -3.732563e-02  4.984590e-01 -2.441241e-06</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt;  [4,] -3.742758e-02  4.988079e-01 -7.587335e-06</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt;  [5,] -4.987112e-01 -3.768125e-02  6.152804e-06</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt;  [6,] -4.984643e-01 -3.750847e-02  5.838681e-06</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt;  [7,] -4.984795e-01 -3.734962e-02  3.623639e-06</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;  [8,] -4.986598e-01 -3.729329e-02  3.799170e-06</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;  [9,] -6.909043e-06 -4.624429e-07 -7.069746e-01</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; [10,] -3.492449e-05 -1.483562e-06 -7.064360e-01</span></span>
 <span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; </span></span>
 <span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; $eigenvalues</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; [1] 359626.10 160651.11  20073.63</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; [1] 375128.24 159759.77  15770.38</span></span>
 <span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; </span></span>
 <span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; $center</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt;          V1          V1          V1          V1          V2          V2 </span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; -98.4175816 -98.4208399 -98.4013314 -98.4171911 -98.4830847 -98.5010837 </span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt;          V2          V2          V3          V3 </span></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; -98.4949262 -98.4978888  -0.8873347  -0.8978563 </span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt;        V1        V1        V1        V1        V2        V2        V2        V2 </span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; -98.65922 -98.56337 -98.45877 -98.63714 -99.70452 -99.61708 -99.92592 -99.70845 </span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt;        V3        V3 </span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt;  23.75389  23.84640 </span></span>
 <span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt; </span></span>
-<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt; $sdev</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt; [1] 599.6883 400.8131 141.6814</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt; </span></span>
-<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt; $var</span></span>
-<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt; [1] 540388.4</span></span>
-<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt; </span></span>
-<span id="cb3-31"><a href="#cb3-31"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
-<span id="cb3-32"><a href="#cb3-32"></a><span class="co">#&gt; [1] &quot;spca&quot;</span></span></code></pre></div>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt; $scores</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt;               [,1]        [,2]         [,3]</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt;   [1,]   441.51422  316.433371  172.8870565</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt;   [2,]   777.15942 -181.587977  -95.1668855</span></span>
+<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt;   [3,]   159.53551 -174.332477  -96.1458362</span></span>
+<span id="cb3-30"><a href="#cb3-30"></a><span class="co">#&gt;   [4,]  -465.15512 -529.672810   70.9713438</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a><span class="co">#&gt;   [5,]  -866.67973  -75.026543   66.7484656</span></span>
+<span id="cb3-32"><a href="#cb3-32"></a><span class="co">#&gt;   [6,]  1073.79467  -11.712953   -2.0069902</span></span>
+<span id="cb3-33"><a href="#cb3-33"></a><span class="co">#&gt;   [7,]  -634.75668  257.402254   -5.6946986</span></span>
+<span id="cb3-34"><a href="#cb3-34"></a><span class="co">#&gt;   [8,]  -902.95503   74.849698 -166.9869368</span></span>
+<span id="cb3-35"><a href="#cb3-35"></a><span class="co">#&gt;   [9,]  -172.08421  -83.482107  -75.2781627</span></span>
+<span id="cb3-36"><a href="#cb3-36"></a><span class="co">#&gt;  [10,]  -271.89588  331.502756 -103.8151241</span></span>
+<span id="cb3-37"><a href="#cb3-37"></a><span class="co">#&gt;  [11,]  -311.47409  -52.308137  219.2203569</span></span>
+<span id="cb3-38"><a href="#cb3-38"></a><span class="co">#&gt;  [12,]   154.96238  334.035030   30.1071364</span></span>
+<span id="cb3-39"><a href="#cb3-39"></a><span class="co">#&gt;  [13,]  -555.41627  423.358397  -49.6437019</span></span>
+<span id="cb3-40"><a href="#cb3-40"></a><span class="co">#&gt;  [14,]   649.50733  925.610039 -108.6147305</span></span>
+<span id="cb3-41"><a href="#cb3-41"></a><span class="co">#&gt;  [15,]  -236.87876 -167.332024   -2.0802447</span></span>
+<span id="cb3-42"><a href="#cb3-42"></a><span class="co">#&gt;  [16,]   749.54623   88.407580  -56.7596920</span></span>
+<span id="cb3-43"><a href="#cb3-43"></a><span class="co">#&gt;  [17,]    -5.86000 -319.804398   21.9103388</span></span>
+<span id="cb3-44"><a href="#cb3-44"></a><span class="co">#&gt;  [18,]  1913.63660  -54.708601 -173.5827338</span></span>
+<span id="cb3-45"><a href="#cb3-45"></a><span class="co">#&gt;  [19,]  -117.63771 -400.678231   81.6792644</span></span>
+<span id="cb3-46"><a href="#cb3-46"></a><span class="co">#&gt;  [20,]  -193.96530 -619.082465 -305.9846699</span></span>
+<span id="cb3-47"><a href="#cb3-47"></a><span class="co">#&gt;  [21,]   -77.43300 -149.892464  -18.6185647</span></span>
+<span id="cb3-48"><a href="#cb3-48"></a><span class="co">#&gt;  [22,] -1680.47622  603.319041  114.4247379</span></span>
+<span id="cb3-49"><a href="#cb3-49"></a><span class="co">#&gt;  [23,] -1119.93852  581.593119 -221.0414117</span></span>
+<span id="cb3-50"><a href="#cb3-50"></a><span class="co">#&gt;  [24,]  -964.45484   66.365188  132.0710199</span></span>
+<span id="cb3-51"><a href="#cb3-51"></a><span class="co">#&gt;  [25,]    90.11213  469.772493  -33.3801496</span></span>
+<span id="cb3-52"><a href="#cb3-52"></a><span class="co">#&gt;  [26,]  -319.95195 -219.208317 -113.2277976</span></span>
+<span id="cb3-53"><a href="#cb3-53"></a><span class="co">#&gt;  [27,]   765.41199 -119.386587  156.0611842</span></span>
+<span id="cb3-54"><a href="#cb3-54"></a><span class="co">#&gt;  [28,]  -549.98612 -431.618889  128.3192602</span></span>
+<span id="cb3-55"><a href="#cb3-55"></a><span class="co">#&gt;  [29,]  -481.36424    6.255120  -58.3732570</span></span>
+<span id="cb3-56"><a href="#cb3-56"></a><span class="co">#&gt;  [30,]   -10.35380 -142.814555   56.4534981</span></span>
+<span id="cb3-57"><a href="#cb3-57"></a><span class="co">#&gt;  [31,]  -487.42759   12.699449   84.8674946</span></span>
+<span id="cb3-58"><a href="#cb3-58"></a><span class="co">#&gt;  [32,]   126.06111  145.049736   -0.9368329</span></span>
+<span id="cb3-59"><a href="#cb3-59"></a><span class="co">#&gt;  [33,]  -374.01251 -200.940659   15.2436701</span></span>
+<span id="cb3-60"><a href="#cb3-60"></a><span class="co">#&gt;  [34,]  -621.01011 -318.044722  112.5254607</span></span>
+<span id="cb3-61"><a href="#cb3-61"></a><span class="co">#&gt;  [35,]  -275.61104  306.191531 -163.7948406</span></span>
+<span id="cb3-62"><a href="#cb3-62"></a><span class="co">#&gt;  [36,]   995.89895  722.679756 -133.4394932</span></span>
+<span id="cb3-63"><a href="#cb3-63"></a><span class="co">#&gt;  [37,]  -703.58192 -393.228690   10.9567666</span></span>
+<span id="cb3-64"><a href="#cb3-64"></a><span class="co">#&gt;  [38,]  -620.40146 -100.018167  257.6470758</span></span>
+<span id="cb3-65"><a href="#cb3-65"></a><span class="co">#&gt;  [39,]   885.28753  302.866477  151.5774181</span></span>
+<span id="cb3-66"><a href="#cb3-66"></a><span class="co">#&gt;  [40,]  -742.13998 -411.625642  159.9789899</span></span>
+<span id="cb3-67"><a href="#cb3-67"></a><span class="co">#&gt;  [41,]   567.92687   87.925501    9.1045926</span></span>
+<span id="cb3-68"><a href="#cb3-68"></a><span class="co">#&gt;  [42,]  -447.78139 -378.649561  -97.7836310</span></span>
+<span id="cb3-69"><a href="#cb3-69"></a><span class="co">#&gt;  [43,]   750.34317 -592.986350   -5.0386473</span></span>
+<span id="cb3-70"><a href="#cb3-70"></a><span class="co">#&gt;  [44,]  -147.57252  -78.638171  -10.6728873</span></span>
+<span id="cb3-71"><a href="#cb3-71"></a><span class="co">#&gt;  [45,]  -326.94008 -708.309479  -80.9271314</span></span>
+<span id="cb3-72"><a href="#cb3-72"></a><span class="co">#&gt;  [46,]   136.80952   75.038101 -294.5847024</span></span>
+<span id="cb3-73"><a href="#cb3-73"></a><span class="co">#&gt;  [47,]  1220.95559 -125.775500   46.9629447</span></span>
+<span id="cb3-74"><a href="#cb3-74"></a><span class="co">#&gt;  [48,]  -212.90901  303.541330 -196.2331048</span></span>
+<span id="cb3-75"><a href="#cb3-75"></a><span class="co">#&gt;  [49,] -1140.07968  280.074917 -123.9770118</span></span>
+<span id="cb3-76"><a href="#cb3-76"></a><span class="co">#&gt;  [50,] -1044.00008 -110.722418  -65.9744752</span></span>
+<span id="cb3-77"><a href="#cb3-77"></a><span class="co">#&gt;  [51,]  -996.40108 -129.753713  -81.5448005</span></span>
+<span id="cb3-78"><a href="#cb3-78"></a><span class="co">#&gt;  [52,]   687.44414   24.942286   93.6370436</span></span>
+<span id="cb3-79"><a href="#cb3-79"></a><span class="co">#&gt;  [53,]    11.95872   56.866989 -355.4480007</span></span>
+<span id="cb3-80"><a href="#cb3-80"></a><span class="co">#&gt;  [54,]  -108.54771  -13.181130   59.9911140</span></span>
+<span id="cb3-81"><a href="#cb3-81"></a><span class="co">#&gt;  [55,]  -649.04237   81.236352 -206.1681297</span></span>
+<span id="cb3-82"><a href="#cb3-82"></a><span class="co">#&gt;  [56,]   845.02791 -652.784142 -133.3020357</span></span>
+<span id="cb3-83"><a href="#cb3-83"></a><span class="co">#&gt;  [57,]    80.12721  219.228576   43.0612969</span></span>
+<span id="cb3-84"><a href="#cb3-84"></a><span class="co">#&gt;  [58,]    55.22950 -579.785776  111.0852435</span></span>
+<span id="cb3-85"><a href="#cb3-85"></a><span class="co">#&gt;  [59,]   -22.81049  281.297959 -115.9209709</span></span>
+<span id="cb3-86"><a href="#cb3-86"></a><span class="co">#&gt;  [60,]   993.07112 1133.831100  -36.4270751</span></span>
+<span id="cb3-87"><a href="#cb3-87"></a><span class="co">#&gt;  [61,]   130.07440  273.332613  156.5540334</span></span>
+<span id="cb3-88"><a href="#cb3-88"></a><span class="co">#&gt;  [62,]  -299.65903 -273.055042   98.0991292</span></span>
+<span id="cb3-89"><a href="#cb3-89"></a><span class="co">#&gt;  [63,]   442.62794  354.567938  180.4335046</span></span>
+<span id="cb3-90"><a href="#cb3-90"></a><span class="co">#&gt;  [64,]   220.71770 -436.150211   52.2557120</span></span>
+<span id="cb3-91"><a href="#cb3-91"></a><span class="co">#&gt;  [65,]  -366.87375 -326.531526  166.1216927</span></span>
+<span id="cb3-92"><a href="#cb3-92"></a><span class="co">#&gt;  [66,]   192.62822  562.154381   24.1847706</span></span>
+<span id="cb3-93"><a href="#cb3-93"></a><span class="co">#&gt;  [67,]   595.32794 -116.490616   89.7921224</span></span>
+<span id="cb3-94"><a href="#cb3-94"></a><span class="co">#&gt;  [68,]  -700.06872  584.183540  -97.0710326</span></span>
+<span id="cb3-95"><a href="#cb3-95"></a><span class="co">#&gt;  [69,]   345.33126  167.930419   62.9411785</span></span>
+<span id="cb3-96"><a href="#cb3-96"></a><span class="co">#&gt;  [70,]   135.77017  545.834746  136.6259661</span></span>
+<span id="cb3-97"><a href="#cb3-97"></a><span class="co">#&gt;  [71,]   427.44748    2.885816  -88.0447707</span></span>
+<span id="cb3-98"><a href="#cb3-98"></a><span class="co">#&gt;  [72,]  -280.77260  344.626904  148.3883594</span></span>
+<span id="cb3-99"><a href="#cb3-99"></a><span class="co">#&gt;  [73,]   291.87853 -816.585519  -27.7506071</span></span>
+<span id="cb3-100"><a href="#cb3-100"></a><span class="co">#&gt;  [74,]   176.00656 -573.075015 -130.5225859</span></span>
+<span id="cb3-101"><a href="#cb3-101"></a><span class="co">#&gt;  [75,]  -252.23820  225.076663  187.6543525</span></span>
+<span id="cb3-102"><a href="#cb3-102"></a><span class="co">#&gt;  [76,]   472.87568 -708.988598 -298.6682083</span></span>
+<span id="cb3-103"><a href="#cb3-103"></a><span class="co">#&gt;  [77,]    75.42089  275.326582  -93.2889203</span></span>
+<span id="cb3-104"><a href="#cb3-104"></a><span class="co">#&gt;  [78,]    25.49299  272.095475 -145.2717413</span></span>
+<span id="cb3-105"><a href="#cb3-105"></a><span class="co">#&gt;  [79,]    55.84072 -391.580889   77.7865544</span></span>
+<span id="cb3-106"><a href="#cb3-106"></a><span class="co">#&gt;  [80,]   147.83143  499.514514   58.4652993</span></span>
+<span id="cb3-107"><a href="#cb3-107"></a><span class="co">#&gt;  [81,]   147.10550  -89.049357  141.1647415</span></span>
+<span id="cb3-108"><a href="#cb3-108"></a><span class="co">#&gt;  [82,]  -328.75939   96.637041  169.0849405</span></span>
+<span id="cb3-109"><a href="#cb3-109"></a><span class="co">#&gt;  [83,]  -300.95750  268.201407   34.9915832</span></span>
+<span id="cb3-110"><a href="#cb3-110"></a><span class="co">#&gt;  [84,]   465.76056  286.134978   49.4844953</span></span>
+<span id="cb3-111"><a href="#cb3-111"></a><span class="co">#&gt;  [85,]   602.08254 1054.084982  -32.0828864</span></span>
+<span id="cb3-112"><a href="#cb3-112"></a><span class="co">#&gt;  [86,]  -217.14654  147.245215  -96.8613854</span></span>
+<span id="cb3-113"><a href="#cb3-113"></a><span class="co">#&gt;  [87,]   190.54010   -5.588877    1.8028700</span></span>
+<span id="cb3-114"><a href="#cb3-114"></a><span class="co">#&gt;  [88,]  1202.55524 -671.173479  160.9361392</span></span>
+<span id="cb3-115"><a href="#cb3-115"></a><span class="co">#&gt;  [89,]   979.43031 -156.113028  119.6746864</span></span>
+<span id="cb3-116"><a href="#cb3-116"></a><span class="co">#&gt;  [90,]   184.85479  409.326597   80.5711914</span></span>
+<span id="cb3-117"><a href="#cb3-117"></a><span class="co">#&gt;  [91,]   104.88829 -698.684811 -204.2203514</span></span>
+<span id="cb3-118"><a href="#cb3-118"></a><span class="co">#&gt;  [92,]   -26.43684  546.861557   57.0001627</span></span>
+<span id="cb3-119"><a href="#cb3-119"></a><span class="co">#&gt;  [93,]   447.97380   38.994648  117.2049350</span></span>
+<span id="cb3-120"><a href="#cb3-120"></a><span class="co">#&gt;  [94,]  -276.04691 -348.833654  -29.9549206</span></span>
+<span id="cb3-121"><a href="#cb3-121"></a><span class="co">#&gt;  [95,]  -667.07927  -18.145147   23.5627814</span></span>
+<span id="cb3-122"><a href="#cb3-122"></a><span class="co">#&gt;  [96,]  -589.78327 -335.642099  -14.8167487</span></span>
+<span id="cb3-123"><a href="#cb3-123"></a><span class="co">#&gt;  [97,]  -534.20542   93.831340  140.9065548</span></span>
+<span id="cb3-124"><a href="#cb3-124"></a><span class="co">#&gt;  [98,]   301.06063   80.291099   11.1115355</span></span>
+<span id="cb3-125"><a href="#cb3-125"></a><span class="co">#&gt;  [99,]  1276.08369 -388.252987   26.9765235</span></span>
+<span id="cb3-126"><a href="#cb3-126"></a><span class="co">#&gt; [100,]   -69.91523 -760.478088   65.8609269</span></span>
+<span id="cb3-127"><a href="#cb3-127"></a><span class="co">#&gt; </span></span>
+<span id="cb3-128"><a href="#cb3-128"></a><span class="co">#&gt; $sdev</span></span>
+<span id="cb3-129"><a href="#cb3-129"></a><span class="co">#&gt; [1] 612.4771 399.6996 125.5802</span></span>
+<span id="cb3-130"><a href="#cb3-130"></a><span class="co">#&gt; </span></span>
+<span id="cb3-131"><a href="#cb3-131"></a><span class="co">#&gt; $var</span></span>
+<span id="cb3-132"><a href="#cb3-132"></a><span class="co">#&gt; [1] 550697.8</span></span>
+<span id="cb3-133"><a href="#cb3-133"></a><span class="co">#&gt; </span></span>
+<span id="cb3-134"><a href="#cb3-134"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
+<span id="cb3-135"><a href="#cb3-135"></a><span class="co">#&gt; [1] &quot;spca&quot;</span></span></code></pre></div>
 <p>The sparsity control factor (alpha) and ridge shrinkage factor (beta) can also be manipulated to achieve greater sparsity.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>rcpp_out2 =<span class="st"> </span><span class="kw">spcaRcpp</span>(X, <span class="dt">k =</span> <span class="dv">3</span>, <span class="dt">alpha =</span> <span class="fl">1e-3</span>, <span class="dt">beta =</span> <span class="fl">1e-3</span>, <span class="dt">max_iter =</span> <span class="dv">10000</span>,<span class="dt">center =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="kw">print</span> (rcpp_out2)</span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; $loadings</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt;                [,1]          [,2]          [,3]</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt;  [1,]  0.0003120226 -0.4966619774 -0.0002444127</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;  [2,]  0.0003007445 -0.4966376990 -0.0003780801</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;  [3,]  0.0002907932 -0.4966539036 -0.0003514410</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;  [4,]  0.0003180228 -0.4966010242 -0.0003152216</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt;  [5,] -0.4985700823 -0.0001483306  0.0004076569</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  [6,] -0.4985463700 -0.0001510576  0.0002878279</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  [7,] -0.4985836776 -0.0001661065  0.0003550310</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt;  [8,] -0.4985482035 -0.0001724651  0.0003501366</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt;  [9,] -0.0007468104  0.0007863172 -0.6783592195</span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; [10,] -0.0007497180  0.0007765056 -0.6781649297</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt;  [1,] -9.147989e-04  0.4966598323 -9.114712e-04</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;  [2,] -8.161866e-04  0.4962050031 -5.613260e-04</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;  [3,] -6.333052e-04  0.4964111986 -2.416968e-04</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;  [4,] -7.447240e-04  0.4967944552 -9.347303e-04</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt;  [5,] -4.986533e-01 -0.0005721215  4.533583e-04</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  [6,] -4.984051e-01 -0.0003595699  4.964444e-05</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  [7,] -4.984019e-01 -0.0002210088  4.368085e-04</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt;  [8,] -4.986004e-01 -0.0001497695  6.649661e-04</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt;  [9,] -8.085391e-04 -0.0002432011 -6.699454e-01</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; [10,] -4.883812e-05 -0.0006603983 -6.694051e-01</span></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; </span></span>
 <span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; $eigenvalues</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; [1] 358544.76 159545.72  19270.12</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt; [1] 374009.38 158645.52  14947.88</span></span>
 <span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt; </span></span>
 <span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; $center</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt;          V1          V1          V1          V1          V2          V2 </span></span>
-<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; -98.4175816 -98.4208399 -98.4013314 -98.4171911 -98.4830847 -98.5010837 </span></span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt;          V2          V2          V3          V3 </span></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; -98.4949262 -98.4978888  -0.8873347  -0.8978563 </span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt;        V1        V1        V1        V1        V2        V2        V2        V2 </span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; -98.65922 -98.56337 -98.45877 -98.63714 -99.70452 -99.61708 -99.92592 -99.70845 </span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt;        V3        V3 </span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt;  23.75389  23.84640 </span></span>
 <span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; </span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; $sdev</span></span>
-<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt; [1] 598.7861 399.4317 138.8169</span></span>
-<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#&gt; </span></span>
-<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#&gt; $var</span></span>
-<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#&gt; [1] 540388.4</span></span>
-<span id="cb4-30"><a href="#cb4-30"></a><span class="co">#&gt; </span></span>
-<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
-<span id="cb4-32"><a href="#cb4-32"></a><span class="co">#&gt; [1] &quot;spca&quot;</span></span></code></pre></div>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; $scores</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt;               [,1]        [,2]         [,3]</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="co">#&gt;   [1,]   441.51422  316.433371  172.8870565</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="co">#&gt;   [2,]   777.15942 -181.587977  -95.1668855</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="co">#&gt;   [3,]   159.53551 -174.332477  -96.1458362</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a><span class="co">#&gt;   [4,]  -465.15512 -529.672810   70.9713438</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a><span class="co">#&gt;   [5,]  -866.67973  -75.026543   66.7484656</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="co">#&gt;   [6,]  1073.79467  -11.712953   -2.0069902</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a><span class="co">#&gt;   [7,]  -634.75668  257.402254   -5.6946986</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a><span class="co">#&gt;   [8,]  -902.95503   74.849698 -166.9869368</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a><span class="co">#&gt;   [9,]  -172.08421  -83.482107  -75.2781627</span></span>
+<span id="cb4-36"><a href="#cb4-36"></a><span class="co">#&gt;  [10,]  -271.89588  331.502756 -103.8151241</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a><span class="co">#&gt;  [11,]  -311.47409  -52.308137  219.2203569</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a><span class="co">#&gt;  [12,]   154.96238  334.035030   30.1071364</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a><span class="co">#&gt;  [13,]  -555.41627  423.358397  -49.6437019</span></span>
+<span id="cb4-40"><a href="#cb4-40"></a><span class="co">#&gt;  [14,]   649.50733  925.610039 -108.6147305</span></span>
+<span id="cb4-41"><a href="#cb4-41"></a><span class="co">#&gt;  [15,]  -236.87876 -167.332024   -2.0802447</span></span>
+<span id="cb4-42"><a href="#cb4-42"></a><span class="co">#&gt;  [16,]   749.54623   88.407580  -56.7596920</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a><span class="co">#&gt;  [17,]    -5.86000 -319.804398   21.9103388</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a><span class="co">#&gt;  [18,]  1913.63660  -54.708601 -173.5827338</span></span>
+<span id="cb4-45"><a href="#cb4-45"></a><span class="co">#&gt;  [19,]  -117.63771 -400.678231   81.6792644</span></span>
+<span id="cb4-46"><a href="#cb4-46"></a><span class="co">#&gt;  [20,]  -193.96530 -619.082465 -305.9846699</span></span>
+<span id="cb4-47"><a href="#cb4-47"></a><span class="co">#&gt;  [21,]   -77.43300 -149.892464  -18.6185647</span></span>
+<span id="cb4-48"><a href="#cb4-48"></a><span class="co">#&gt;  [22,] -1680.47622  603.319041  114.4247379</span></span>
+<span id="cb4-49"><a href="#cb4-49"></a><span class="co">#&gt;  [23,] -1119.93852  581.593119 -221.0414117</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a><span class="co">#&gt;  [24,]  -964.45484   66.365188  132.0710199</span></span>
+<span id="cb4-51"><a href="#cb4-51"></a><span class="co">#&gt;  [25,]    90.11213  469.772493  -33.3801496</span></span>
+<span id="cb4-52"><a href="#cb4-52"></a><span class="co">#&gt;  [26,]  -319.95195 -219.208317 -113.2277976</span></span>
+<span id="cb4-53"><a href="#cb4-53"></a><span class="co">#&gt;  [27,]   765.41199 -119.386587  156.0611842</span></span>
+<span id="cb4-54"><a href="#cb4-54"></a><span class="co">#&gt;  [28,]  -549.98612 -431.618889  128.3192602</span></span>
+<span id="cb4-55"><a href="#cb4-55"></a><span class="co">#&gt;  [29,]  -481.36424    6.255120  -58.3732570</span></span>
+<span id="cb4-56"><a href="#cb4-56"></a><span class="co">#&gt;  [30,]   -10.35380 -142.814555   56.4534981</span></span>
+<span id="cb4-57"><a href="#cb4-57"></a><span class="co">#&gt;  [31,]  -487.42759   12.699449   84.8674946</span></span>
+<span id="cb4-58"><a href="#cb4-58"></a><span class="co">#&gt;  [32,]   126.06111  145.049736   -0.9368329</span></span>
+<span id="cb4-59"><a href="#cb4-59"></a><span class="co">#&gt;  [33,]  -374.01251 -200.940659   15.2436701</span></span>
+<span id="cb4-60"><a href="#cb4-60"></a><span class="co">#&gt;  [34,]  -621.01011 -318.044722  112.5254607</span></span>
+<span id="cb4-61"><a href="#cb4-61"></a><span class="co">#&gt;  [35,]  -275.61104  306.191531 -163.7948406</span></span>
+<span id="cb4-62"><a href="#cb4-62"></a><span class="co">#&gt;  [36,]   995.89895  722.679756 -133.4394932</span></span>
+<span id="cb4-63"><a href="#cb4-63"></a><span class="co">#&gt;  [37,]  -703.58192 -393.228690   10.9567666</span></span>
+<span id="cb4-64"><a href="#cb4-64"></a><span class="co">#&gt;  [38,]  -620.40146 -100.018167  257.6470758</span></span>
+<span id="cb4-65"><a href="#cb4-65"></a><span class="co">#&gt;  [39,]   885.28753  302.866477  151.5774181</span></span>
+<span id="cb4-66"><a href="#cb4-66"></a><span class="co">#&gt;  [40,]  -742.13998 -411.625642  159.9789899</span></span>
+<span id="cb4-67"><a href="#cb4-67"></a><span class="co">#&gt;  [41,]   567.92687   87.925501    9.1045926</span></span>
+<span id="cb4-68"><a href="#cb4-68"></a><span class="co">#&gt;  [42,]  -447.78139 -378.649561  -97.7836310</span></span>
+<span id="cb4-69"><a href="#cb4-69"></a><span class="co">#&gt;  [43,]   750.34317 -592.986350   -5.0386473</span></span>
+<span id="cb4-70"><a href="#cb4-70"></a><span class="co">#&gt;  [44,]  -147.57252  -78.638171  -10.6728873</span></span>
+<span id="cb4-71"><a href="#cb4-71"></a><span class="co">#&gt;  [45,]  -326.94008 -708.309479  -80.9271314</span></span>
+<span id="cb4-72"><a href="#cb4-72"></a><span class="co">#&gt;  [46,]   136.80952   75.038101 -294.5847024</span></span>
+<span id="cb4-73"><a href="#cb4-73"></a><span class="co">#&gt;  [47,]  1220.95559 -125.775500   46.9629447</span></span>
+<span id="cb4-74"><a href="#cb4-74"></a><span class="co">#&gt;  [48,]  -212.90901  303.541330 -196.2331048</span></span>
+<span id="cb4-75"><a href="#cb4-75"></a><span class="co">#&gt;  [49,] -1140.07968  280.074917 -123.9770118</span></span>
+<span id="cb4-76"><a href="#cb4-76"></a><span class="co">#&gt;  [50,] -1044.00008 -110.722418  -65.9744752</span></span>
+<span id="cb4-77"><a href="#cb4-77"></a><span class="co">#&gt;  [51,]  -996.40108 -129.753713  -81.5448005</span></span>
+<span id="cb4-78"><a href="#cb4-78"></a><span class="co">#&gt;  [52,]   687.44414   24.942286   93.6370436</span></span>
+<span id="cb4-79"><a href="#cb4-79"></a><span class="co">#&gt;  [53,]    11.95872   56.866989 -355.4480007</span></span>
+<span id="cb4-80"><a href="#cb4-80"></a><span class="co">#&gt;  [54,]  -108.54771  -13.181130   59.9911140</span></span>
+<span id="cb4-81"><a href="#cb4-81"></a><span class="co">#&gt;  [55,]  -649.04237   81.236352 -206.1681297</span></span>
+<span id="cb4-82"><a href="#cb4-82"></a><span class="co">#&gt;  [56,]   845.02791 -652.784142 -133.3020357</span></span>
+<span id="cb4-83"><a href="#cb4-83"></a><span class="co">#&gt;  [57,]    80.12721  219.228576   43.0612969</span></span>
+<span id="cb4-84"><a href="#cb4-84"></a><span class="co">#&gt;  [58,]    55.22950 -579.785776  111.0852435</span></span>
+<span id="cb4-85"><a href="#cb4-85"></a><span class="co">#&gt;  [59,]   -22.81049  281.297959 -115.9209709</span></span>
+<span id="cb4-86"><a href="#cb4-86"></a><span class="co">#&gt;  [60,]   993.07112 1133.831100  -36.4270751</span></span>
+<span id="cb4-87"><a href="#cb4-87"></a><span class="co">#&gt;  [61,]   130.07440  273.332613  156.5540334</span></span>
+<span id="cb4-88"><a href="#cb4-88"></a><span class="co">#&gt;  [62,]  -299.65903 -273.055042   98.0991292</span></span>
+<span id="cb4-89"><a href="#cb4-89"></a><span class="co">#&gt;  [63,]   442.62794  354.567938  180.4335046</span></span>
+<span id="cb4-90"><a href="#cb4-90"></a><span class="co">#&gt;  [64,]   220.71770 -436.150211   52.2557120</span></span>
+<span id="cb4-91"><a href="#cb4-91"></a><span class="co">#&gt;  [65,]  -366.87375 -326.531526  166.1216927</span></span>
+<span id="cb4-92"><a href="#cb4-92"></a><span class="co">#&gt;  [66,]   192.62822  562.154381   24.1847706</span></span>
+<span id="cb4-93"><a href="#cb4-93"></a><span class="co">#&gt;  [67,]   595.32794 -116.490616   89.7921224</span></span>
+<span id="cb4-94"><a href="#cb4-94"></a><span class="co">#&gt;  [68,]  -700.06872  584.183540  -97.0710326</span></span>
+<span id="cb4-95"><a href="#cb4-95"></a><span class="co">#&gt;  [69,]   345.33126  167.930419   62.9411785</span></span>
+<span id="cb4-96"><a href="#cb4-96"></a><span class="co">#&gt;  [70,]   135.77017  545.834746  136.6259661</span></span>
+<span id="cb4-97"><a href="#cb4-97"></a><span class="co">#&gt;  [71,]   427.44748    2.885816  -88.0447707</span></span>
+<span id="cb4-98"><a href="#cb4-98"></a><span class="co">#&gt;  [72,]  -280.77260  344.626904  148.3883594</span></span>
+<span id="cb4-99"><a href="#cb4-99"></a><span class="co">#&gt;  [73,]   291.87853 -816.585519  -27.7506071</span></span>
+<span id="cb4-100"><a href="#cb4-100"></a><span class="co">#&gt;  [74,]   176.00656 -573.075015 -130.5225859</span></span>
+<span id="cb4-101"><a href="#cb4-101"></a><span class="co">#&gt;  [75,]  -252.23820  225.076663  187.6543525</span></span>
+<span id="cb4-102"><a href="#cb4-102"></a><span class="co">#&gt;  [76,]   472.87568 -708.988598 -298.6682083</span></span>
+<span id="cb4-103"><a href="#cb4-103"></a><span class="co">#&gt;  [77,]    75.42089  275.326582  -93.2889203</span></span>
+<span id="cb4-104"><a href="#cb4-104"></a><span class="co">#&gt;  [78,]    25.49299  272.095475 -145.2717413</span></span>
+<span id="cb4-105"><a href="#cb4-105"></a><span class="co">#&gt;  [79,]    55.84072 -391.580889   77.7865544</span></span>
+<span id="cb4-106"><a href="#cb4-106"></a><span class="co">#&gt;  [80,]   147.83143  499.514514   58.4652993</span></span>
+<span id="cb4-107"><a href="#cb4-107"></a><span class="co">#&gt;  [81,]   147.10550  -89.049357  141.1647415</span></span>
+<span id="cb4-108"><a href="#cb4-108"></a><span class="co">#&gt;  [82,]  -328.75939   96.637041  169.0849405</span></span>
+<span id="cb4-109"><a href="#cb4-109"></a><span class="co">#&gt;  [83,]  -300.95750  268.201407   34.9915832</span></span>
+<span id="cb4-110"><a href="#cb4-110"></a><span class="co">#&gt;  [84,]   465.76056  286.134978   49.4844953</span></span>
+<span id="cb4-111"><a href="#cb4-111"></a><span class="co">#&gt;  [85,]   602.08254 1054.084982  -32.0828864</span></span>
+<span id="cb4-112"><a href="#cb4-112"></a><span class="co">#&gt;  [86,]  -217.14654  147.245215  -96.8613854</span></span>
+<span id="cb4-113"><a href="#cb4-113"></a><span class="co">#&gt;  [87,]   190.54010   -5.588877    1.8028700</span></span>
+<span id="cb4-114"><a href="#cb4-114"></a><span class="co">#&gt;  [88,]  1202.55524 -671.173479  160.9361392</span></span>
+<span id="cb4-115"><a href="#cb4-115"></a><span class="co">#&gt;  [89,]   979.43031 -156.113028  119.6746864</span></span>
+<span id="cb4-116"><a href="#cb4-116"></a><span class="co">#&gt;  [90,]   184.85479  409.326597   80.5711914</span></span>
+<span id="cb4-117"><a href="#cb4-117"></a><span class="co">#&gt;  [91,]   104.88829 -698.684811 -204.2203514</span></span>
+<span id="cb4-118"><a href="#cb4-118"></a><span class="co">#&gt;  [92,]   -26.43684  546.861557   57.0001627</span></span>
+<span id="cb4-119"><a href="#cb4-119"></a><span class="co">#&gt;  [93,]   447.97380   38.994648  117.2049350</span></span>
+<span id="cb4-120"><a href="#cb4-120"></a><span class="co">#&gt;  [94,]  -276.04691 -348.833654  -29.9549206</span></span>
+<span id="cb4-121"><a href="#cb4-121"></a><span class="co">#&gt;  [95,]  -667.07927  -18.145147   23.5627814</span></span>
+<span id="cb4-122"><a href="#cb4-122"></a><span class="co">#&gt;  [96,]  -589.78327 -335.642099  -14.8167487</span></span>
+<span id="cb4-123"><a href="#cb4-123"></a><span class="co">#&gt;  [97,]  -534.20542   93.831340  140.9065548</span></span>
+<span id="cb4-124"><a href="#cb4-124"></a><span class="co">#&gt;  [98,]   301.06063   80.291099   11.1115355</span></span>
+<span id="cb4-125"><a href="#cb4-125"></a><span class="co">#&gt;  [99,]  1276.08369 -388.252987   26.9765235</span></span>
+<span id="cb4-126"><a href="#cb4-126"></a><span class="co">#&gt; [100,]   -69.91523 -760.478088   65.8609269</span></span>
+<span id="cb4-127"><a href="#cb4-127"></a><span class="co">#&gt; </span></span>
+<span id="cb4-128"><a href="#cb4-128"></a><span class="co">#&gt; $sdev</span></span>
+<span id="cb4-129"><a href="#cb4-129"></a><span class="co">#&gt; [1] 611.5631 398.3033 122.2615</span></span>
+<span id="cb4-130"><a href="#cb4-130"></a><span class="co">#&gt; </span></span>
+<span id="cb4-131"><a href="#cb4-131"></a><span class="co">#&gt; $var</span></span>
+<span id="cb4-132"><a href="#cb4-132"></a><span class="co">#&gt; [1] 550697.8</span></span>
+<span id="cb4-133"><a href="#cb4-133"></a><span class="co">#&gt; </span></span>
+<span id="cb4-134"><a href="#cb4-134"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
+<span id="cb4-135"><a href="#cb4-135"></a><span class="co">#&gt; [1] &quot;spca&quot;</span></span></code></pre></div>
 </div>
 <div id="comparing-to-deterministic-pca" class="section level3">
 <h3>Comparing to Deterministic PCA</h3>
@@ -429,24 +635,16 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 <div id="real-data" class="section level3">
 <h3>Real Data</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(tidyverse, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; ✓ ggplot2 3.3.5     ✓ purrr   0.3.4</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; ✓ tibble  3.1.5     ✓ dplyr   1.0.7</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt; ✓ tidyr   1.1.4     ✓ stringr 1.4.0</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; ✓ readr   2.0.2     ✓ forcats 0.5.1</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; x dplyr::filter() masks stats::filter()</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="kw">data</span>(<span class="st">&quot;USArrests&quot;</span>)</span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="kw">head</span>(USArrests)</span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;            Murder Assault UrbanPop Rape</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt; Alabama      13.2     236       58 21.2</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt; Alaska       10.0     263       48 44.5</span></span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt; Arizona       8.1     294       80 31.0</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt; Arkansas      8.8     190       50 19.5</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; California    9.0     276       91 40.6</span></span>
-<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt; Colorado      7.9     204       78 38.7</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#library(tidyverse, quietly = TRUE)</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">data</span>(<span class="st">&quot;USArrests&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">head</span>(USArrests)</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt;            Murder Assault UrbanPop Rape</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt; Alabama      13.2     236       58 21.2</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; Alaska       10.0     263       48 44.5</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; Arizona       8.1     294       80 31.0</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; Arkansas      8.8     190       50 19.5</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; California    9.0     276       91 40.6</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; Colorado      7.9     204       78 38.7</span></span></code></pre></div>
 <p>We can test <code>spcaRcpp</code> on the real USArrests data, and compare the results with those generated by <code>prcomp</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>rcpp_out_rd =<span class="st"> </span><span class="kw">spcaRcpp</span>(USArrests,<span class="dt">k =</span> <span class="dv">4</span>, <span class="dt">center =</span> <span class="ot">TRUE</span>, <span class="dt">alpha =</span> <span class="dv">0</span>, <span class="dt">beta =</span> <span class="dv">0</span>)</span>
 <span id="cb7-2"><a href="#cb7-2"></a>prcomp_out_rd =<span class="st"> </span><span class="kw">prcomp</span>(USArrests,<span class="dt">center =</span> <span class="ot">TRUE</span>, <span class="dt">rank. =</span> <span class="dv">4</span>)</span>
@@ -465,24 +663,77 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt;   Murder  Assault UrbanPop     Rape </span></span>
 <span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt;    7.788  170.760   65.540   21.232 </span></span>
 <span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; </span></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; $sdev</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; [1] 83.732400 14.212402  6.489426  2.482790</span></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; </span></span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; $var</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; [1] 7261.384</span></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; </span></span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
-<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; [1] &quot;spca&quot;</span></span>
-<span id="cb7-26"><a href="#cb7-26"></a>prcomp_out_rd</span>
-<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; Standard deviations (1, .., p=4):</span></span>
-<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt; [1] 83.732400 14.212402  6.489426  2.482790</span></span>
-<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; </span></span>
-<span id="cb7-30"><a href="#cb7-30"></a><span class="co">#&gt; Rotation (n x k) = (4 x 4):</span></span>
-<span id="cb7-31"><a href="#cb7-31"></a><span class="co">#&gt;                 PC1         PC2         PC3         PC4</span></span>
-<span id="cb7-32"><a href="#cb7-32"></a><span class="co">#&gt; Murder   0.04170432 -0.04482166  0.07989066 -0.99492173</span></span>
-<span id="cb7-33"><a href="#cb7-33"></a><span class="co">#&gt; Assault  0.99522128 -0.05876003 -0.06756974  0.03893830</span></span>
-<span id="cb7-34"><a href="#cb7-34"></a><span class="co">#&gt; UrbanPop 0.04633575  0.97685748 -0.20054629 -0.05816914</span></span>
-<span id="cb7-35"><a href="#cb7-35"></a><span class="co">#&gt; Rape     0.07515550  0.20071807  0.97408059  0.07232502</span></span></code></pre></div>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; $scores</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt;                       [,1]        [,2]         [,3]       [,4]</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; Alabama          64.802164 -11.4480074  -2.49493284 -2.4079009</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; Alaska           92.827450 -17.9829427  20.12657487  4.0940470</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; Arizona         124.068216   8.8304030  -1.68744836  4.3536852</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; Arkansas         18.340035 -16.7039114   0.21018936  0.5209936</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; California      107.422953  22.5200698   6.74587299  2.8118259</span></span>
+<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; Colorado         34.975986  13.7195840  12.27936280  1.7214637</span></span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; Connecticut     -60.887282  12.9325302  -8.42065719  0.6999023</span></span>
+<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; Delaware         66.731025   1.3537978 -11.28095735  3.7279812</span></span>
+<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt; Florida         165.244370   6.2746901  -2.99793315 -1.2476807</span></span>
+<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; Georgia          40.535177  -7.2902396   3.60952946 -7.3436728</span></span>
+<span id="cb7-30"><a href="#cb7-30"></a><span class="co">#&gt; Hawaii         -123.536106  24.2912079   3.72444284 -3.4728494</span></span>
+<span id="cb7-31"><a href="#cb7-31"></a><span class="co">#&gt; Idaho           -51.797002  -9.4691910  -1.52006356  3.3478283</span></span>
+<span id="cb7-32"><a href="#cb7-32"></a><span class="co">#&gt; Illinois         78.992097  12.8970605  -5.88326477 -0.3676407</span></span>
+<span id="cb7-33"><a href="#cb7-33"></a><span class="co">#&gt; Indiana         -57.550961   2.8462647   3.73816049 -1.6494302</span></span>
+<span id="cb7-34"><a href="#cb7-34"></a><span class="co">#&gt; Iowa           -115.586790  -3.3421305  -0.65402935  0.8694960</span></span>
+<span id="cb7-35"><a href="#cb7-35"></a><span class="co">#&gt; Kansas          -55.789694   3.1572339   0.38436416 -0.6527917</span></span>
+<span id="cb7-36"><a href="#cb7-36"></a><span class="co">#&gt; Kentucky        -62.383181 -10.6732715   2.23708903 -3.8762164</span></span>
+<span id="cb7-37"><a href="#cb7-37"></a><span class="co">#&gt; Louisiana        78.277631  -4.2949175  -3.82786965 -4.4835590</span></span>
+<span id="cb7-38"><a href="#cb7-38"></a><span class="co">#&gt; Maine           -89.261044 -11.4878272  -4.69240562  2.1161995</span></span>
+<span id="cb7-39"><a href="#cb7-39"></a><span class="co">#&gt; Maryland        129.330136  -5.0070315  -2.34717282  1.9283242</span></span>
+<span id="cb7-40"><a href="#cb7-40"></a><span class="co">#&gt; Massachusetts   -21.266283  19.4501790  -7.50714835  1.0348189</span></span>
+<span id="cb7-41"><a href="#cb7-41"></a><span class="co">#&gt; Michigan         85.451527   5.9045567   6.46434210 -0.4990479</span></span>
+<span id="cb7-42"><a href="#cb7-42"></a><span class="co">#&gt; Minnesota       -98.954816   5.2096006   0.00657376  0.7318957</span></span>
+<span id="cb7-43"><a href="#cb7-43"></a><span class="co">#&gt; Mississippi      86.856358 -27.4284196  -5.00343624 -3.8797577</span></span>
+<span id="cb7-44"><a href="#cb7-44"></a><span class="co">#&gt; Missouri          7.986289   5.2756414   5.50057972 -0.6794055</span></span>
+<span id="cb7-45"><a href="#cb7-45"></a><span class="co">#&gt; Montana         -62.483635  -9.5105021   1.83835536 -0.2459426</span></span>
+<span id="cb7-46"><a href="#cb7-46"></a><span class="co">#&gt; Nebraska        -69.096544  -0.2111959   0.46802086  0.6565664</span></span>
+<span id="cb7-47"><a href="#cb7-47"></a><span class="co">#&gt; Nevada           83.613578  15.1021839  15.88869482 -0.3341962</span></span>
+<span id="cb7-48"><a href="#cb7-48"></a><span class="co">#&gt; New Hampshire  -114.777355  -4.7345584  -2.28238693  0.9359106</span></span>
+<span id="cb7-49"><a href="#cb7-49"></a><span class="co">#&gt; New Jersey      -10.815725  23.1373389  -6.31015739 -1.6124273</span></span>
+<span id="cb7-50"><a href="#cb7-50"></a><span class="co">#&gt; New Mexico      114.868163  -0.3364531   2.26126996  1.3812478</span></span>
+<span id="cb7-51"><a href="#cb7-51"></a><span class="co">#&gt; New York         84.294231  15.9239655  -4.72125960 -0.8920194</span></span>
+<span id="cb7-52"><a href="#cb7-52"></a><span class="co">#&gt; North Carolina  164.325514 -31.0966153 -11.69616350  2.1111927</span></span>
+<span id="cb7-53"><a href="#cb7-53"></a><span class="co">#&gt; North Dakota   -127.495597 -16.1350394  -1.31182982  2.3009639</span></span>
+<span id="cb7-54"><a href="#cb7-54"></a><span class="co">#&gt; Ohio            -50.086822  12.2793244   1.65733077 -2.0291157</span></span>
+<span id="cb7-55"><a href="#cb7-55"></a><span class="co">#&gt; Oklahoma        -19.693723   3.3701310  -0.45314329  0.1803457</span></span>
+<span id="cb7-56"><a href="#cb7-56"></a><span class="co">#&gt; Oregon          -11.150240   3.8660682   8.12998050  2.9140109</span></span>
+<span id="cb7-57"><a href="#cb7-57"></a><span class="co">#&gt; Pennsylvania    -64.689142   8.9115466  -3.20646858 -1.8749353</span></span>
+<span id="cb7-58"><a href="#cb7-58"></a><span class="co">#&gt; Rhode Island      3.063973  18.3739704 -17.47001970  2.3082597</span></span>
+<span id="cb7-59"><a href="#cb7-59"></a><span class="co">#&gt; South Carolina  107.281069 -23.5361159  -2.03279501 -1.2517463</span></span>
+<span id="cb7-60"><a href="#cb7-60"></a><span class="co">#&gt; South Dakota    -86.106720 -16.5978586   1.31437998  1.2522874</span></span>
+<span id="cb7-61"><a href="#cb7-61"></a><span class="co">#&gt; Tennessee        17.506264  -6.5065756   6.10012753 -3.9228558</span></span>
+<span id="cb7-62"><a href="#cb7-62"></a><span class="co">#&gt; Texas            31.291122  12.9849566  -0.39340922 -4.2420040</span></span>
+<span id="cb7-63"><a href="#cb7-63"></a><span class="co">#&gt; Utah            -49.913397  17.6484577   1.78816852  1.8677052</span></span>
+<span id="cb7-64"><a href="#cb7-64"></a><span class="co">#&gt; Vermont        -124.714469 -27.3135591   4.80277765  2.0049857</span></span>
+<span id="cb7-65"><a href="#cb7-65"></a><span class="co">#&gt; Virginia        -14.817448  -1.7526150   1.04538813 -1.1738408</span></span>
+<span id="cb7-66"><a href="#cb7-66"></a><span class="co">#&gt; Washington      -25.075839   9.9679669   4.78112764  2.6910819</span></span>
+<span id="cb7-67"><a href="#cb7-67"></a><span class="co">#&gt; West Virginia   -91.544647 -22.9528778  -0.40198344 -0.7368781</span></span>
+<span id="cb7-68"><a href="#cb7-68"></a><span class="co">#&gt; Wisconsin      -118.176328   5.5075792  -2.71132077 -0.2049724</span></span>
+<span id="cb7-69"><a href="#cb7-69"></a><span class="co">#&gt; Wyoming         -10.434539  -5.9244529  -3.79444682  0.5178674</span></span>
+<span id="cb7-70"><a href="#cb7-70"></a><span class="co">#&gt; </span></span>
+<span id="cb7-71"><a href="#cb7-71"></a><span class="co">#&gt; $sdev</span></span>
+<span id="cb7-72"><a href="#cb7-72"></a><span class="co">#&gt; [1] 83.732400 14.212402  6.489426  2.482790</span></span>
+<span id="cb7-73"><a href="#cb7-73"></a><span class="co">#&gt; </span></span>
+<span id="cb7-74"><a href="#cb7-74"></a><span class="co">#&gt; $var</span></span>
+<span id="cb7-75"><a href="#cb7-75"></a><span class="co">#&gt; [1] 7261.384</span></span>
+<span id="cb7-76"><a href="#cb7-76"></a><span class="co">#&gt; </span></span>
+<span id="cb7-77"><a href="#cb7-77"></a><span class="co">#&gt; attr(,&quot;class&quot;)</span></span>
+<span id="cb7-78"><a href="#cb7-78"></a><span class="co">#&gt; [1] &quot;spca&quot;</span></span>
+<span id="cb7-79"><a href="#cb7-79"></a>prcomp_out_rd</span>
+<span id="cb7-80"><a href="#cb7-80"></a><span class="co">#&gt; Standard deviations (1, .., p=4):</span></span>
+<span id="cb7-81"><a href="#cb7-81"></a><span class="co">#&gt; [1] 83.732400 14.212402  6.489426  2.482790</span></span>
+<span id="cb7-82"><a href="#cb7-82"></a><span class="co">#&gt; </span></span>
+<span id="cb7-83"><a href="#cb7-83"></a><span class="co">#&gt; Rotation (n x k) = (4 x 4):</span></span>
+<span id="cb7-84"><a href="#cb7-84"></a><span class="co">#&gt;                 PC1         PC2         PC3         PC4</span></span>
+<span id="cb7-85"><a href="#cb7-85"></a><span class="co">#&gt; Murder   0.04170432 -0.04482166  0.07989066 -0.99492173</span></span>
+<span id="cb7-86"><a href="#cb7-86"></a><span class="co">#&gt; Assault  0.99522128 -0.05876003 -0.06756974  0.03893830</span></span>
+<span id="cb7-87"><a href="#cb7-87"></a><span class="co">#&gt; UrbanPop 0.04633575  0.97685748 -0.20054629 -0.05816914</span></span>
+<span id="cb7-88"><a href="#cb7-88"></a><span class="co">#&gt; Rape     0.07515550  0.20071807  0.97408059  0.07232502</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">all.equal</span>(prcomp_out_rd<span class="op">$</span>sdev, rcpp_out_rd<span class="op">$</span>sdev)</span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="co">#&gt; [1] TRUE</span></span>
 <span id="cb8-3"><a href="#cb8-3"></a><span class="kw">all.equal</span>(prcomp_out_rd<span class="op">$</span>rotation, rcpp_out_rd<span class="op">$</span>loadings,</span>
@@ -491,9 +742,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb8-6"><a href="#cb8-6"></a><span class="kw">all.equal</span>(prcomp_out_rd<span class="op">$</span>center, rcpp_out_rd<span class="op">$</span>center)</span>
 <span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>runtime =<span class="st"> </span>microbenchmark<span class="op">::</span><span class="kw">microbenchmark</span>(prcomp_out_rd, rcpp_out_rd, <span class="dt">times =</span> <span class="dv">200</span>)</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">autoplot</span>(runtime)</span>
+<span id="cb9-2"><a href="#cb9-2"></a>ggplot2<span class="op">::</span><span class="kw">autoplot</span>(runtime)</span>
 <span id="cb9-3"><a href="#cb9-3"></a><span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --> Although the RcppArmadillo integration for iteration loop in the spcaRcpp function was expected to increase efficiency, microbenchmark did not show marginally better runtime. This could be because the iteration loop did not significantly impact the runtime of function. As the number of iteration required for convergence increases, the spcaRcpp should improve efficiency.</p>
+<p><img src="data:image/png;base64,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3bpVzjjjDBk9erR07do1ND2cDb/77rvy7W9/W/74xz/K6aef7rwcmeObb75Z3nnnHXn88ccjoxMUoQcUKXOEowy+gz7//PNwGs+zVeh44MAB9ZdnlUCKab2i/j0eRexgIBJQILcpGyECRCAbAtwRMRsqKTt3wgknSL169SLd62rVqsm3vvUtadKkSaT0rFOnjtKrUaNGkdLLqcxJJ50kRxxxhPN06MeMAYVuAipABNKLAIdg6bU9e04EQkeABBS6CYJX4H//+5/Mnj1bVq9efVDjq1atkueff142btx40LWgTrzwwgvy2WefVWgO+syZM0egn5n27t0rL730krz88suyf/9+85Jv+T179sjChQvlX//610F6ueEVhF66gytXrpQ1a9boQ/XphhcuuunsVaeCcB8Pqgy3ko/yKCriCDz99NMybtw4adCggTz00EOC3wpr06aN0nrs2LHyxBNPyL59++See+6Rb3zjG4HHhmbMmCF33XWX9OnTR/2WPRR7/fXXZfDgwVK/fn35wx/+oHQ+7rjjZPfu3dK/f3/ZuXOnIqEXX3xRLrzwQikrK/PNCp988on86Ec/ktq1a8srr7wic+fOlQsuuMATryD00h3ElwiwadWqlRxzzDHqtBteuOhmY686uq2SfFrTh0wpQcCais1cf/31GeumVT3+5z//mbEedJXHuUsvvTRjTcer47/85S+Z22+/XeWD+Gd5LxlrrUrm6quvznTs2DFjeR12s3379s0sXbpUHa9fvz5jrbvJWB5GZsqUKRnrgbLLoa5FEvaxHxng8Kc//UmJsryyzMUXX5yxvA2FoRteQegFhawvi0z37t0zP/jBDzLPPvus3V03vLxs7FbHFlqiDIdgJaH1aAqFZzBhwgRp0aKFGq5g6II80nvvvSeYKTnkkC9uia997WuyfPlydS2If1iHhIWG8LzMhKHYRx99pHTD+a985StSq1Yt+fjjj9XCOuipUyl07tmzp1xxxRWqCXgJ0PPwww/3xAsL/kqtFxSqWbOmTJ48WXk+2uvzwsvNxl51NLal+uQ0fKmQjbDcbdu2Sa9evdQQ5oEHHlCarlu3rsJw69BDD5VNmzYF1ovq1avLd77znYPaQ7wKwx/9gKEAlgx8+umnYnlDAj11Qh5kVYr061//WubPny/XXnutIkAvvILSSw8F0V/LQVHd9sLLTWev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" /><!-- --></p>
+<p>Although the RcppArmadillo integration for iteration loop in the spcaRcpp function was expected to increase efficiency, microbenchmark did not show marginally better runtime. This could be because the iteration loop did not significantly impact the runtime of function. As the number of iteration required for convergence increases, the spcaRcpp should improve efficiency.</p>
 </div>
 
 
