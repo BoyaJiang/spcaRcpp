@@ -32,7 +32,7 @@ shifted to be zero centered.}
 \item{tol}{stopping criteria for the convergence.}
 }
 \value{
-\code{spca} returns a list containing the following five components:
+\code{spca} returns a list containing the following six components:
 \item{loadings}{  the matrix of variable loadings. 
 }
 
@@ -46,6 +46,9 @@ shifted to be zero centered.}
 }
 
 \item{var}{  the variance.
+}
+
+#'\item{scores}{  the principal component scores.
 }
 }
 \description{

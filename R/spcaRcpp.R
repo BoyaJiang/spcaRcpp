@@ -42,7 +42,7 @@
 #'
 #' @param tol     stopping criteria for the convergence.
 #'
-#'@return \code{spca} returns a list containing the following five components:
+#'@return \code{spca} returns a list containing the following six components:
 #'\item{loadings}{  the matrix of variable loadings. 
 #'}
 #'
@@ -56,6 +56,9 @@
 #'}
 #'
 #'\item{var}{  the variance.
+#'}
+#'
+#'#'\item{scores}{  the principal component scores.
 #'}
 #'
 #'
@@ -106,7 +109,8 @@ spcaRcpp.default <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_
   #initiate spca object
   spcaObj = list(loadings = NULL,
                  eigenvalues = NULL,
-                 center = center)
+                 center = center,
+                 scores = NULL)
 
   n <- nrow(X)
   p <- ncol(X)
@@ -148,6 +152,7 @@ spcaRcpp.default <- function(X, k=NULL, alpha=1e-4, beta=1e-4, center=TRUE, max_
   #update spca objects
   spcaObj$loadings    <- ret$B
   spcaObj$eigenvalues <- as.vector( t( ret$d / (n - 1) ) )
+  spcaObj$scores      <- X %*% B
 
   #explained variance
   spcaObj$sdev <- sqrt(spcaObj$eigenvalues)

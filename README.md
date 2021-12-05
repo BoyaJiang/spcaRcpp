@@ -56,7 +56,8 @@ A list with the following components is returned:
 
 * ``loadings`` sparse loadings (weight) vector.
 * ``standard deviations`` the approximated standard deviations; ``k`` dimensional array.
-* ``eigenvalues`` the approximated eigenvalues; 
+* ``eigenvalues`` the approximated eigenvalues. 
+* ``scores`` the principal component scores. 
 
 ## Installation
 
