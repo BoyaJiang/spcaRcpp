@@ -32,7 +32,7 @@ shifted to be zero centered.}
 \item{tol}{stopping criteria for the convergence.}
 }
 \value{
-\code{spca} returns a list containing the following six components:
+\code{spcaRcpp} returns a list containing the following six components:
 \item{loadings}{  the matrix of variable loadings. 
 }
 

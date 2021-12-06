@@ -42,7 +42,7 @@
 #'
 #' @param tol     stopping criteria for the convergence.
 #'
-#'@return \code{spca} returns a list containing the following six components:
+#'@return \code{spcaRcpp} returns a list containing the following six components:
 #'\item{loadings}{  the matrix of variable loadings. 
 #'}
 #'
