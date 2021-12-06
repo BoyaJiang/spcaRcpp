@@ -58,7 +58,7 @@
 #'\item{var}{  the variance.
 #'}
 #'
-#'#'\item{scores}{  the principal component scores.
+#'\item{scores}{  the principal component scores.
 #'}
 #'
 #'
